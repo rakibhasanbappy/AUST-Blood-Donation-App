@@ -23,7 +23,7 @@ public class StartingScreen extends AppCompatActivity {
                 startActivity(new Intent(StartingScreen.this, MainActivity.class));
                 finish();
             }
-        }, 1500);
+        }, 2500);
 
     }
 }
