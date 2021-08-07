@@ -1,8 +1,10 @@
-package com.bappy.austblooddonationapp;
+package com.bappy.austblooddonationapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.bappy.austblooddonationapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
