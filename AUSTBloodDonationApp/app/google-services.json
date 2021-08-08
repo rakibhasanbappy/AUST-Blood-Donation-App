@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "84539985503",
+    "project_id": "aust-blood-donation-app",
+    "storage_bucket": "aust-blood-donation-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:84539985503:android:0ee887c9872541a94015ea",
+        "android_client_info": {
+          "package_name": "com.bappy.austblooddonationapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "84539985503-fn8na36pfpr1lo55nlsmpet7hpkt4vso.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9sfQIqyZ6tLCqmD9LZ-oBVeQ3pGtyE0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "84539985503-fn8na36pfpr1lo55nlsmpet7hpkt4vso.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
