@@ -6,4 +6,6 @@
     <string name="signInButton">SIGN IN</string>
     <string name="signInMessage">Already have an account ? Sign In</string>
     <string name="signUpMessage">Are you not registered ? Sign Up</string>
+    <string name="choose_location">Choose Location</string>
+    <string name="make_a_request">Make A Request</string>
 </resources>

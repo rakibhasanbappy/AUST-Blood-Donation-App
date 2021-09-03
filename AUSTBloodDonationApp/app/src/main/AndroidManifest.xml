@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AUSTBloodDonationApp">
-        <activity android:name=".activities.Dashboard"></activity>
+        <activity android:name=".activities.SearchPage"></activity>
+        <activity android:name=".activities.Dashboard" />
         <activity android:name=".activities.SignInScreen" />
         <activity android:name=".activities.SignUpScreen" />
         <activity android:name=".activities.StartingScreen">
