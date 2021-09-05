@@ -8,4 +8,125 @@
     <string name="signUpMessage">Are you not registered ? Sign Up</string>
     <string name="choose_location">Choose Location</string>
     <string name="make_a_request">Make A Request</string>
+    <string name="request_headline">Write a request for your required blood, somebody will definitely help you.</string>
+    <string name="message">Write your post</string>
+    <string name="choose_image"><u>Choose Image</u></string>
+    <string name="post_request">Post Request</string>
+    <string name="image">Image</string>
+    <string name="blood_group">Blood Group</string>
+    <string name="enter_full_address">Enter Full Address</string>
+    <string name="divison">Divison</string>
+    <string name="district">District</string>
+
+    <string-array name="blood_group">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+
+    <string-array name="divison">
+        <item>Dhaka</item>
+        <item>Chattogram</item>
+        <item>Rajshahi</item>
+        <item>Barishal</item>
+        <item>Khulna</item>
+        <item>Rangpur</item>
+        <item>Sylhet</item>
+        <item>Mymensingh</item>
+    </string-array>
+
+    <string-array name="dhakaDistrict">
+        <item>Dhaka</item>
+        <item>Kishoreganj</item>
+        <item>Narsingdi</item>
+        <item>Gazipur</item>
+        <item>Narayanganj</item>
+        <item>Munshiganj</item>
+        <item>Manikganj</item>
+        <item>Tangail</item>
+        <item>Faridpur</item>
+        <item>Gopalganj</item>
+        <item>Madaripur</item>
+        <item>Rajbari</item>
+        <item>Shariatpur</item>
+    </string-array>
+
+    <string-array name="mymensinghDistrict">
+        <item>Mymensingh</item>
+        <item>Sherpur</item>
+        <item>Netrokona</item>
+        <item>Jamalpur</item>
+    </string-array>
+
+    <string-array name="chattogramDistrict">
+        <item>Chittagong</item>
+        <item>Coxs Bazar</item>
+        <item>Rangamati</item>
+        <item>Bandarban</item>
+        <item>Khagrachhari</item>
+        <item>Feni</item>
+        <item>Lakshmipur</item>
+        <item>Comilla</item>
+        <item>Noakhali</item>
+        <item>Brahmanbaria</item>
+        <item>Chandpur</item>
+    </string-array>
+
+
+    <string-array name="rajshahiDistrict">
+        <item>Rajshahi</item>
+        <item>Natore</item>
+        <item>Pabna</item>
+        <item>Bogura</item>
+        <item>Chapainawabganj</item>
+        <item>Joypurhat</item>
+        <item>Naogaon</item>
+        <item>Sirajganj</item>
+    </string-array>
+
+    <string-array name="barihsalDistrict">
+        <item>Barisal</item>
+        <item>Barguna</item>
+        <item>Bhola</item>
+        <item>Jhalokati</item>
+        <item>Patuakhali</item>
+        <item>Pirojpur</item>
+    </string-array>
+
+    <string-array name="khulnaDistrict">
+        <item>Khulna</item>
+        <item>Bagherhat</item>
+        <item>Sathkhira</item>
+        <item>Jessore</item>
+        <item>Magura</item>
+        <item>Jhenaidah</item>
+        <item>Narail</item>
+        <item>Kushtia</item>
+        <item>Chuadanga</item>
+        <item>Meherpur</item>
+    </string-array>
+
+    <string-array name="sylhetDistrict">
+        <item>Habiganj</item>
+        <item>Moulvibazar</item>
+        <item>Sunamganj</item>
+        <item>Sylhet</item>
+    </string-array>
+
+    <string-array name="rangpurDistrict">
+        <item>Rangpur</item>
+        <item>Gaibandha</item>
+        <item>Nilphamari</item>
+        <item>Kurigram</item>
+        <item>Lalmonirhat</item>
+        <item>Dinajpur</item>
+        <item>Thakurgaon</item>
+        <item>Panchagarh</item>
+    </string-array>
+    
 </resources>

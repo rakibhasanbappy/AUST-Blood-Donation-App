@@ -8,8 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AUSTBloodDonationApp">
-        <activity android:name=".activities.SearchPage"></activity>
+        android:theme="@style/Theme.AUSTBloodDonationApp"
+        android:requestLegacyExternalStorage="true">
+        <activity android:name=".activities.MakeRequestActivity"></activity>
+        <activity android:name=".activities.SearchPage" />
         <activity android:name=".activities.Dashboard" />
         <activity android:name=".activities.SignInScreen" />
         <activity android:name=".activities.SignUpScreen" />
@@ -21,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MainActivity" />
+
     </application>
 
 </manifest>

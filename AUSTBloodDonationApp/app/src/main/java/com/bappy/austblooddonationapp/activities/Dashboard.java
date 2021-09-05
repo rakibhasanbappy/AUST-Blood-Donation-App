@@ -1,5 +1,6 @@
 package com.bappy.austblooddonationapp.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,26 +10,49 @@ import androidx.recyclerview.widget.RecyclerView.LayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.bappy.austblooddonationapp.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Adapters.RequestAdapter;
-import DataModels.RequestDataModel;
+import Adapters.showPostAdapter;
+import DataModels.bloodPostData;
 
 public class Dashboard extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private List<RequestDataModel> requestDataModelList;
-    private RequestAdapter requestAdapter;
+    private ListView listView;
+    private List<bloodPostData> bloodPostDataList;
+    private showPostAdapter showpostAdapter;
+    TextView make_request_text;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        requestDataModelList = new ArrayList<>();
+
+        databaseReference = FirebaseDatabase.getInstance("https://aust-blood-donation-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("bloodPost");
+
+        make_request_text = findViewById(R.id.make_request_button);
+
+        make_request_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Dashboard.this, MakeRequestActivity.class));
+            }
+        });
+
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -45,29 +69,37 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
-        recyclerView = findViewById(R.id.recyclerView);
+        bloodPostDataList = new ArrayList<>();
+        showpostAdapter = new showPostAdapter(Dashboard.this, bloodPostDataList);
 
-        LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL,false);
-
-        recyclerView.setLayoutManager(layoutManager);
-        requestAdapter = new RequestAdapter(requestDataModelList, this);
-        recyclerView.setAdapter(requestAdapter);
-        populateDashboard();
+        listView= findViewById(R.id.listView);
 
     }
 
-    private void populateDashboard(){
-        RequestDataModel requestDataModel = new RequestDataModel("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.");
+    @Override
+    protected void onStart() {
 
-        requestDataModelList.add(requestDataModel);
-        requestDataModelList.add(requestDataModel);
-        requestDataModelList.add(requestDataModel);
-        requestDataModelList.add(requestDataModel);
-        requestDataModelList.add(requestDataModel);
-        requestDataModelList.add(requestDataModel);
-        requestDataModelList.add(requestDataModel);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-        requestAdapter.notifyDataSetChanged();
+                bloodPostDataList.clear();
+                for(DataSnapshot dataSnapshot1 : snapshot.getChildren()){
+                    bloodPostData bloodPostData = dataSnapshot1.getValue(DataModels.bloodPostData.class);
+                    bloodPostDataList.add(bloodPostData);
+                }
+
+                listView.setAdapter(showpostAdapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        super.onStart();
     }
 
 }
