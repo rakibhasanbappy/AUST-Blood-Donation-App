@@ -17,6 +17,10 @@
     <string name="enter_full_address">Enter Full Address</string>
     <string name="divison">Divison</string>
     <string name="district">District</string>
+    <string name="all_blood_request">All Blood Request</string>
+    <string name="all_donor_list">All Donor List</string>
+    <string name="search_donor">Search Donor</string>
+    <string name="enter_your_name">Enter Your Name</string>
 
     <string-array name="blood_group">
         <item>A+</item>
@@ -128,5 +132,5 @@
         <item>Thakurgaon</item>
         <item>Panchagarh</item>
     </string-array>
-    
+
 </resources>

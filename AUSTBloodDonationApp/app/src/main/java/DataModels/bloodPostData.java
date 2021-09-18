@@ -2,13 +2,61 @@ package DataModels;
 
 public class bloodPostData {
 
-    private String bloodGroup, divison, district, address;
+    private String id, name, bloodGroup, divison, district, address, phone, message;
 
-    public bloodPostData(String bloodGroup, String divison, String district, String address) {
+
+
+    public bloodPostData(String id, String name, String bloodGroup, String divison, String district, String address, String phone, String message) {
+        this.id = id;
+        this.name = name;
         this.bloodGroup = bloodGroup;
         this.divison = divison;
         this.district = district;
         this.address = address;
+        this.phone = phone;
+        this.message = message;
+    }
+
+    public bloodPostData(String name, String bloodGroup, String divison, String district, String address, String phone, String message) {
+        this.name = name;
+        this.bloodGroup = bloodGroup;
+        this.divison = divison;
+        this.district = district;
+        this.address = address;
+        this.phone = phone;
+        this.message = message;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public bloodPostData(){

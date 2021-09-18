@@ -2,20 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bappy.austblooddonationapp">
 
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AUSTBloodDonationApp"
-        android:requestLegacyExternalStorage="true">
-        <activity android:name=".activities.MakeRequestActivity"></activity>
-        <activity android:name=".activities.SearchPage" />
+        android:theme="@style/Theme.AUSTBloodDonationApp">
+        <activity android:name=".activities.showPostDetails"></activity>
+        <activity android:name=".activities.showRequest" />
         <activity android:name=".activities.Dashboard" />
+        <activity android:name=".activities.MakeRequestActivity" />
+        <activity android:name=".activities.SearchPage" />
         <activity android:name=".activities.SignInScreen" />
         <activity android:name=".activities.SignUpScreen" />
         <activity android:name=".activities.StartingScreen">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MainActivity" />
-
     </application>
+
 
 </manifest>

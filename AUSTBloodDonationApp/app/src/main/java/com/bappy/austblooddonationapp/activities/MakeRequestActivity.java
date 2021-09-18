@@ -2,6 +2,7 @@ package com.bappy.austblooddonationapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,8 +20,10 @@ import DataModels.bloodPostData;
 
 public class MakeRequestActivity extends AppCompatActivity {
 
+    EditText nameText;
     EditText requestMessageText;
     EditText detailAddress;
+    EditText phoneNo;
     Button request_submit_button;
     AutoCompleteTextView bloodDropdown, divisonDropdown, districtDropdown;
     String[] bloodList;
@@ -29,19 +32,22 @@ public class MakeRequestActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
 
     boolean valid = true;
-    String divison,bloodGroup,district,address,message;
+    String divison,bloodGroup,district,address,message,name,phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_request);
 
+
+        nameText = findViewById(R.id.nameText);
         requestMessageText = findViewById(R.id.requestMessage);
         request_submit_button = findViewById(R.id.submit_request_button);
         bloodDropdown = findViewById(R.id.BloodGroupDropDown);
         divisonDropdown = findViewById(R.id.DivisonDropDown);
         districtDropdown = findViewById(R.id.DistrictDropDown);
         detailAddress = findViewById(R.id.detailAdress);
+        phoneNo = findViewById(R.id.contactNumber);
 
         databaseReference = FirebaseDatabase.getInstance("https://aust-blood-donation-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("bloodPost");
 
@@ -138,56 +144,9 @@ public class MakeRequestActivity extends AppCompatActivity {
         request_submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if (isValid()) {
                     saveData();
-                //}
             }
         });
-    }
-
-
-    private boolean isValid(){
-
-        bloodDropdown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-                bloodGroup = (String)parent.getItemAtPosition(position);
-                if(bloodGroup.equals("")){
-                    showMessage("Select a blood group");
-                    valid = false;
-                }
-            }
-        });
-
-
-        divisonDropdown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-                divison = (String)parent.getItemAtPosition(position);
-                if(divison.equals("")) {
-                    valid = false;
-                    showMessage("Select a divison");
-                }
-            }
-        });
-
-
-
-        districtDropdown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-                district = (String)parent.getItemAtPosition(position);
-                if(district.equals("")){
-                    showMessage("Select a district");
-                    valid = false;
-                }
-            }
-        });
-
-        if(detailAddress.getText().toString().equals("")){
-            showMessage("Enter your detail address");
-            valid = false;
-        }
-
-        return valid;
-
     }
 
 
@@ -195,23 +154,51 @@ public class MakeRequestActivity extends AppCompatActivity {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
+
     private void saveData(){
+
+        name = nameText.getText().toString();
 
         address = detailAddress.getText().toString();
 
         message = requestMessageText.getText().toString();
 
-        Toast.makeText(this, bloodGroup, Toast.LENGTH_SHORT).show();
+        phone = phoneNo.getText().toString();
 
-        Toast.makeText(this, district, Toast.LENGTH_SHORT).show();
+        if(name.equals("")){
+            showMessage("Enter your name!");
+        }
 
-        String key = databaseReference.push().getKey();
 
-        bloodPostData bloodPostData = new bloodPostData(bloodGroup, divison, district, address);
-        
-        databaseReference.child(key).setValue(bloodPostData);
+        if(bloodGroup.equals("")){
+            showMessage("Select a blood group");
+        }
 
-        Toast.makeText(this, "Post Updated!", Toast.LENGTH_SHORT).show();
+        else if(divison.equals("")){
+            showMessage("Select a divison");
+        }
+
+        else if(district.equals("")){
+            showMessage("Select a district");
+        }
+
+        else if(detailAddress.getText().toString().equals("")){
+            showMessage("Enter your detail address");
+        }
+
+        else{
+            String key = databaseReference.push().getKey();
+
+            bloodPostData bloodPostData = new bloodPostData(key, name, bloodGroup, divison, district, address, phone, message);
+
+            databaseReference.child(key).setValue(bloodPostData);
+
+            Toast.makeText(this, "Post Updated!", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+            startActivity(intent);
+
+        }
 
     }
 

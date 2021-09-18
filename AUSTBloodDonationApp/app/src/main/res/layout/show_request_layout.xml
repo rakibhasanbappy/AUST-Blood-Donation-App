@@ -1,81 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:padding="10dp">
+    android:background="@color/white">
 
 
 
-    <TextView
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/all_blood_request"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/white"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Blood Group: B+"
-        android:textColor="@color/black"
-        android:layout_marginTop="5dp"
-        android:id="@+id/bloodGroupText"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Divison: Dhaka"
-        android:textColor="@color/black"
-        android:layout_marginTop="5dp"
-        android:id="@+id/divisonText"/>
-
-    <TextView
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="District: Kishoregonj"
-        android:textColor="@color/black"
-        android:layout_marginTop="5dp"
-        android:id="@+id/districtText"/>
-
-
-    <TextView
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Address: Katiadi"
-        android:textColor="@color/black"
-        android:layout_marginTop="5dp"
-        android:id="@+id/addressText"/>
-
-            
-       <!-- <View
-            android:id="@+id/black_line"
+        <LinearLayout
+            android:background="@color/ash"
+            android:gravity="center"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_below="@+id/cardImage"
-            android:background="@color/black" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/call_button"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="8dp"
-            android:layout_below="@+id/black_line"
-            android:src="@drawable/call_button"
-            android:background="@color/white"
-            android:layout_width="30dp"
-            android:layout_height="30dp"/>
+            android:layout_height="wrap_content">
 
 
+            <TextView
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name: "
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                android:id="@+id/nameText"/>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/share_button"
-            android:layout_toStartOf="@+id/call_button"
-            android:layout_margin="8dp"
-            android:layout_below="@+id/black_line"
-            android:background="@color/white"
-            android:src="@drawable/share_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"/>-->
+            <TextView
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Blood Group: "
+                android:textColor="@color/primaryColor"
+                android:layout_marginTop="5dp"
+                android:id="@+id/bloodGroupText"/>
+
+            <TextView
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address: "
+                android:textColor="@color/teal_700"
+                android:layout_marginTop="5dp"
+                android:id="@+id/addressText"/>
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
 
 
 </LinearLayout>
