@@ -204,7 +204,7 @@
         </FrameLayout>
 
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/submit_request_button"
@@ -213,6 +213,7 @@
             android:textSize="18sp"
             android:textAllCaps="false"
             android:textStyle="bold"
+            android:background="@drawable/custom_button"
             android:layout_margin="30dp"/>
 
     </LinearLayout>

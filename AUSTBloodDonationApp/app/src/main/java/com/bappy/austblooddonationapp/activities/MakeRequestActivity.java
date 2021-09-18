@@ -32,7 +32,7 @@ public class MakeRequestActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
 
     boolean valid = true;
-    String divison,bloodGroup,district,address,message,name,phone;
+    String divison = "",bloodGroup = "",district = "",address = "",message = "",name = "",phone = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,10 +150,6 @@ public class MakeRequestActivity extends AppCompatActivity {
     }
 
 
-    private void showMessage(String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-
 
     private void saveData(){
 
@@ -166,24 +162,33 @@ public class MakeRequestActivity extends AppCompatActivity {
         phone = phoneNo.getText().toString();
 
         if(name.equals("")){
-            showMessage("Enter your name!");
+            Toast.makeText(this, "Enter Name!", Toast.LENGTH_SHORT).show();
         }
 
+        else if(bloodGroup.equals("")){
 
-        if(bloodGroup.equals("")){
-            showMessage("Select a blood group");
+            Toast.makeText(this, "Enter Blood Group!", Toast.LENGTH_SHORT).show();
+
         }
 
         else if(divison.equals("")){
-            showMessage("Select a divison");
+            Toast.makeText(this, "Enter Divison!", Toast.LENGTH_SHORT).show();
         }
 
         else if(district.equals("")){
-            showMessage("Select a district");
+            Toast.makeText(this, "Enter District!", Toast.LENGTH_SHORT).show();
         }
 
-        else if(detailAddress.getText().toString().equals("")){
-            showMessage("Enter your detail address");
+        else if(address.equals("")){
+            Toast.makeText(this, "Enter Address!", Toast.LENGTH_SHORT).show();
+        }
+
+        else if(phone.equals("")){
+            Toast.makeText(this, "Enter COntact Number!", Toast.LENGTH_SHORT).show();
+        }
+
+        else if(phone.length() != 11){
+            Toast.makeText(this, "Enter Correct Contact Number!", Toast.LENGTH_SHORT).show();
         }
 
         else{

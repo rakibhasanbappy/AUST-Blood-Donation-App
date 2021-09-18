@@ -11,4 +11,5 @@
     <color name="primaryColorDark">#F43232</color>
     <color name="colorAccent">#D81B60</color>
     <color name="ash">#F5F5F5</color>
+    <color name="gray">#808080</color>
 </resources>
