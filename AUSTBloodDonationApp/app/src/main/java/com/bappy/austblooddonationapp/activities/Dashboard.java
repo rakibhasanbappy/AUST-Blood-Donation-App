@@ -1,11 +1,17 @@
 package com.bappy.austblooddonationapp.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 
 import com.bappy.austblooddonationapp.R;
@@ -13,6 +19,8 @@ import com.bappy.austblooddonationapp.R;
 public class Dashboard extends AppCompatActivity implements View.OnClickListener {
 
     private CardView allRequestButton, makeRequestButton, allDonorButton, searchDonorButton;
+
+    private Toolbar menuItem;
 
 
     @Override
@@ -24,6 +32,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         makeRequestButton = findViewById(R.id.make_request);
         allDonorButton = findViewById(R.id.all_donor);
         searchDonorButton = findViewById(R.id.search_donor);
+        menuItem = findViewById(R.id.toolbar);
 
 
         allRequestButton.setOnClickListener(this);
@@ -31,7 +40,42 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         allDonorButton.setOnClickListener(this);
         searchDonorButton.setOnClickListener(this);
 
+
+        menuItem.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                if(item.getItemId() == R.id.my_profile){
+                    Intent intent = new Intent(getApplicationContext(), userProfile.class);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+
+            }
+        });
+
+
     }
+
+    /*@Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        Toast.makeText(this, "menu", Toast.LENGTH_SHORT).show();
+
+        switch (item.getItemId()){
+
+            case R.id.my_profile:
+                Toast.makeText(this, "My profile selected!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), userProfile.class);
+                startActivity(intent);
+                return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }*/
+
 
 
     @Override
