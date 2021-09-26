@@ -2,12 +2,13 @@ package DataModels;
 
 public class bloodPostData {
 
-    private String id, name, bloodGroup, divison, district, address, phone, message;
+    private String id, uid, name, bloodGroup, divison, district, address, phone, message;
 
 
 
-    public bloodPostData(String id, String name, String bloodGroup, String divison, String district, String address, String phone, String message) {
+    public bloodPostData(String id, String uid, String name, String bloodGroup, String divison, String district, String address, String phone, String message) {
         this.id = id;
+        this.uid = uid;
         this.name = name;
         this.bloodGroup = bloodGroup;
         this.divison = divison;
@@ -17,7 +18,11 @@ public class bloodPostData {
         this.message = message;
     }
 
-    public bloodPostData(String name, String bloodGroup, String divison, String district, String address, String phone, String message) {
+    public bloodPostData(){
+
+    }
+
+    /*public bloodPostData(String name, String bloodGroup, String divison, String district, String address, String phone, String message) {
         this.name = name;
         this.bloodGroup = bloodGroup;
         this.divison = divison;
@@ -25,7 +30,7 @@ public class bloodPostData {
         this.address = address;
         this.phone = phone;
         this.message = message;
-    }
+    }*/
 
     public String getId() {
         return id;
@@ -33,6 +38,14 @@ public class bloodPostData {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getName() {
@@ -59,9 +72,6 @@ public class bloodPostData {
         this.message = message;
     }
 
-    public bloodPostData(){
-
-    }
 
     public String getBloodGroup() {
         return bloodGroup;

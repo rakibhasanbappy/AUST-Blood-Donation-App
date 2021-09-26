@@ -97,6 +97,9 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
         if (v.getId() == R.id.all_donor) {
 
+            Intent intent = new Intent(getApplicationContext(), allDonorList.class);
+            startActivity(intent);
+
         }
 
         if (v.getId() == R.id.search_donor) {

@@ -38,6 +38,7 @@
                 android:layout_marginBottom="10dp"/>
 
             <TextView
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name: Rakib Hasan Bappy"
@@ -47,6 +48,7 @@
                 android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/bloodGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Blood Group: B+"
@@ -56,6 +58,7 @@
                 android:textColor="@color/primaryColor" />
 
             <TextView
+                android:id="@+id/divison"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Divison: Dhaka"
@@ -65,6 +68,7 @@
                 android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/district"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="District: Kishoregonj"
@@ -74,6 +78,7 @@
                 android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Contact No: 01761900420"
@@ -115,6 +120,7 @@
 
 
             <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/available"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Available for donate "

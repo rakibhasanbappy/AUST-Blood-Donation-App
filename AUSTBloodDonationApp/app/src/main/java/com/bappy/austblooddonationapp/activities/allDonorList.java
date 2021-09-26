@@ -24,7 +24,7 @@ import java.util.List;
 import Adapters.showUsersAdapter;
 import DataModels.userProfileData;
 
-public class showSearchResult extends AppCompatActivity {
+public class allDonorList extends AppCompatActivity {
 
 
     private ListView listView;
@@ -32,29 +32,17 @@ public class showSearchResult extends AppCompatActivity {
     private showUsersAdapter showusersAdapter;
     DatabaseReference databaseReference;
 
-    String divison, district, bloodGroup;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_request);
 
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-
-
-        if(extras != null){
-
-            divison = extras.getString("Divison");
-            district = extras.getString("District");
-            bloodGroup = extras.getString("Blood Group");
-        }
 
         databaseReference = FirebaseDatabase.getInstance("https://aust-blood-donation-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("users");
 
         usersList = new ArrayList<>();
-        showusersAdapter = new showUsersAdapter(showSearchResult.this, usersList);
+        showusersAdapter = new showUsersAdapter(allDonorList.this, usersList);
 
         listView= findViewById(R.id.listView);
 
@@ -71,18 +59,7 @@ public class showSearchResult extends AppCompatActivity {
                 usersList.clear();
                 for(DataSnapshot dataSnapshot1 : snapshot.getChildren()){
                     userProfileData userProfileData = dataSnapshot1.getValue(DataModels.userProfileData.class);
-                    if(!divison.equals("") && !district.equals("") && !bloodGroup.equals("")){
-                        if(divison.equals(userProfileData.getDivison().toString()) && district.equals(userProfileData.getDistrict().toString()) && bloodGroup.equals(userProfileData.getBloodGroup().toString()))
-                            usersList.add(userProfileData);
-                    }
-                    else if(!bloodGroup.equals("")){
-                        if(bloodGroup.equals(userProfileData.getBloodGroup().toString()))
-                            usersList.add(userProfileData);
-                    }
-                    else{
-                        if(divison.equals(userProfileData.getDivison().toString()) && district.equals(userProfileData.getDistrict().toString()))
-                            usersList.add(userProfileData);
-                    }
+                    usersList.add(userProfileData);
                 }
 
 
@@ -105,7 +82,7 @@ public class showSearchResult extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(showSearchResult.this, "Can't Read Data! Check internet connection.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(allDonorList.this, "Can't Read Data! Check internet connection.", Toast.LENGTH_SHORT).show();
             }
         });
 

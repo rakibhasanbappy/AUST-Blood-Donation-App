@@ -29,13 +29,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/etEmailAddressLayout"
             android:textColorHint="@color/black"
-            app:boxBackgroundColor="@color/gray">
+            app:boxBackgroundColor="@color/ash">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signInEmailAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:ems="10"
                 android:hint="@string/emailHint"
                 android:textColor="@color/black"
@@ -50,14 +50,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/etPasswordLayout"
             android:textColorHint="@color/black"
-            app:boxBackgroundColor="@color/gray"
+            app:boxBackgroundColor="@color/ash"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/signInPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:ems="10"
                 android:hint="@string/passwordHint"
                 android:textColor="@color/black"
@@ -70,7 +70,7 @@
             android:id="@+id/signInButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_margin="20dp"
             android:padding="10dp"
             android:background="@drawable/custom_button"
             android:text="@string/signInButton"
