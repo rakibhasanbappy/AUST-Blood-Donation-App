@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.AUSTBloodDonationApp">
-        <activity android:name=".activities.allDonorList"></activity>
+        <activity android:name=".activities.myRequest"></activity>
+        <activity android:name=".activities.allDonorList" />
         <activity android:name=".activities.signUpDetails" />
         <activity android:name=".activities.aboutUs" />
         <activity android:name=".activities.userProfile" />

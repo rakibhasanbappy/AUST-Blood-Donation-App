@@ -50,6 +50,13 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                     startActivity(intent);
                     return true;
                 }
+
+                if(item.getItemId() == R.id.my_request){
+                    Intent intent = new Intent(getApplicationContext(), myRequest.class);
+                    startActivity(intent);
+                    return true;
+                }
+
                 return false;
 
             }

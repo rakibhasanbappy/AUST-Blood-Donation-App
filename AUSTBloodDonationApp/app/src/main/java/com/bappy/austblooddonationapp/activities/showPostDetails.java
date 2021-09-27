@@ -7,11 +7,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bappy.austblooddonationapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,15 +26,20 @@ import DataModels.bloodPostData;
 public class showPostDetails extends AppCompatActivity {
 
     String id, phone;
-    DatabaseReference databaseReference;
-    TextView showName, showBloodGroup, showDivison, showDistrict, showAddress, showContact, showMessage;
-    ImageButton callButton;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private TextView showName, showBloodGroup, showDivison, showDistrict, showAddress, showContact, showMessage;
+    private Button callButton, deleteButton;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_post_details);
+
+        FirebaseUser rUser = mAuth.getCurrentUser();
+        String userId = rUser.getUid();
+
 
         showName = findViewById(R.id.showName);
         showBloodGroup = findViewById(R.id.showBloodGroup);
@@ -41,6 +49,8 @@ public class showPostDetails extends AppCompatActivity {
         showContact = findViewById(R.id.showContact);
         showMessage = findViewById(R.id.showMessage);
         callButton = findViewById(R.id.callButton);
+        deleteButton = findViewById(R.id.deleteButton);
+
 
         Bundle extra = getIntent().getExtras();
         if(extra != null){
@@ -64,6 +74,9 @@ public class showPostDetails extends AppCompatActivity {
                 showContact.setText("Contact No: "+ showPost.getPhone());
                 showMessage.setText("Message: "+ showPost.getMessage());
                 phone = showPost.getPhone();
+
+                if(showPost.getUid().equals(userId))
+                    deleteButton.setVisibility(View.VISIBLE);
 
             }
 
