@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,6 +39,8 @@ public class userProfile extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private Button editButton;
+    private String Name = "", BloodGroup = "", Divison = "", District = "", Phone = "", Date = "", Available = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,10 @@ public class userProfile extends AppCompatActivity {
         phone = findViewById(R.id.phone);
         date = findViewById(R.id.date_picker);
         available = findViewById(R.id.available);
+        editButton = findViewById(R.id.edit_profile_button);
+
+
+        available.setClickable(false);
 
         FirebaseUser rUser = mAuth.getCurrentUser();
         String userId = rUser.getUid();
@@ -64,13 +72,21 @@ public class userProfile extends AppCompatActivity {
                 userProfileData userProfileData = snapshot.getValue(DataModels.userProfileData.class);
 
 
-                name.setText("Name: "+userProfileData.getName());
-                bloodGroup.setText("Blood Group: "+userProfileData.getBloodGroup());
-                divison.setText("Divison: "+userProfileData.getDivison());
-                district.setText("District: "+userProfileData.getDistrict());
-                phone.setText("Contact No: "+userProfileData.getPhone());
-                date.setText(userProfileData.getDate());
-                if(userProfileData.getAvailability().equals("true"))
+                Name = userProfileData.getName();
+                BloodGroup = userProfileData.getBloodGroup();
+                Divison = userProfileData.getDivison();
+                District = userProfileData.getDistrict();
+                Phone = userProfileData.getPhone();
+                Date = userProfileData.getDate();
+                Available = userProfileData.getAvailability();
+
+                name.setText("Name: "+Name);
+                bloodGroup.setText("Blood Group: "+BloodGroup);
+                divison.setText("Divison: "+Divison);
+                district.setText("District: "+District);
+                phone.setText("Contact No: "+Phone);
+                date.setText(Date);
+                if(Available.equals("true"))
                     available.setChecked(true);
                 else
                     available.setChecked(false);
@@ -110,6 +126,26 @@ public class userProfile extends AppCompatActivity {
 
             }
         };*/
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getApplicationContext(), editProfile.class);
+                intent.putExtra("name", Name);
+                intent.putExtra("blood", BloodGroup);
+                intent.putExtra("divison", Divison);
+                intent.putExtra("district", District);
+                intent.putExtra("phone", Phone);
+                intent.putExtra("date", Date);
+                intent.putExtra("available", Available);
+
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
 
     }
 }

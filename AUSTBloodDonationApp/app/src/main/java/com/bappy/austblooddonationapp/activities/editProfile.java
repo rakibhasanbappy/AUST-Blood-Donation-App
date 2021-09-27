@@ -2,6 +2,7 @@ package com.bappy.austblooddonationapp.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -32,19 +33,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import DataModels.bloodPostData;
 import DataModels.userProfileData;
 
-public class signUpDetails extends AppCompatActivity {
-
+public class editProfile extends AppCompatActivity {
 
     private EditText nameText,phoneNo;
     private AutoCompleteTextView bloodDropdown, divisonDropdown, districtDropdown;
     private TextView datePicker;
-    private Button doneButton;
+    private Button saveButton;
+    private SwitchCompat available;
     private ProgressBar progressBar;
-    private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private String name = "", bloodGroup = "", divison = "", district = "", phone = "", date = "", availability = "", userId = "";
 
     String[] bloodList;
     String[] divisonList;
@@ -53,25 +54,15 @@ public class signUpDetails extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     boolean valid = true;
-    String divison = "",bloodGroup = "",district = "",name = "",phone = "", date = "",mail = "",password = "",available = "true";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up_details);
+        setContentView(R.layout.activity_edit_profile);
 
-        mAuth = FirebaseAuth.getInstance();
-
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-
-
-        if(extras != null){
-
-            mail = extras.getString("email");
-            password = extras.getString("password");
-        }
+        FirebaseUser rUser = mAuth.getCurrentUser();
+        userId = rUser.getUid();
 
         nameText = findViewById(R.id.nameText);
         phoneNo = findViewById(R.id.contact);
@@ -79,10 +70,35 @@ public class signUpDetails extends AppCompatActivity {
         divisonDropdown = findViewById(R.id.DivisonDropDown);
         districtDropdown = findViewById(R.id.DistrictDropDown);
         datePicker = findViewById(R.id.date_picker);
-        doneButton = findViewById(R.id.doneButton);
+        saveButton = findViewById(R.id.saveButton);
+        available = findViewById(R.id.available);
         progressBar = findViewById(R.id.progressBar);
 
-        
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+
+        if(extras != null){
+
+            name = extras.getString("name");
+            bloodGroup = extras.getString("blood");
+            divison = extras.getString("divison");
+            district = extras.getString("district");
+            phone = extras.getString("phone");
+            date = extras.getString("date");
+            availability = extras.getString("available");
+        }
+
+        nameText.setText(name);
+        bloodDropdown.setText(bloodGroup);
+        divisonDropdown.setText(divison);
+        districtDropdown.setText(district);
+        phoneNo.setText(phone);
+        datePicker.setText(date);
+
+        if(availability.equals("true"))
+            available.setChecked(true);
+        else
+            available.setChecked(false);
 
 
         bloodList = getResources().getStringArray(R.array.blood_group);
@@ -181,7 +197,7 @@ public class signUpDetails extends AppCompatActivity {
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(signUpDetails.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year, month, day);
+                DatePickerDialog dialog = new DatePickerDialog(editProfile.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year, month, day);
 
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
@@ -201,7 +217,7 @@ public class signUpDetails extends AppCompatActivity {
         };
 
 
-        doneButton.setOnClickListener(new View.OnClickListener() {
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveData();
@@ -210,12 +226,17 @@ public class signUpDetails extends AppCompatActivity {
 
     }
 
-
     private void saveData(){
 
         name = nameText.getText().toString();
 
         phone = phoneNo.getText().toString();
+
+        if(available.isChecked())
+            availability = "true";
+        else
+            availability = "false";
+
 
         if(name.equals("")){
             Toast.makeText(this, "Enter Name!", Toast.LENGTH_SHORT).show();
@@ -252,63 +273,42 @@ public class signUpDetails extends AppCompatActivity {
 
             progressBar.setVisibility(View.VISIBLE);
 
-            mAuth.createUserWithEmailAndPassword(mail, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                FirebaseUser rUser = mAuth.getCurrentUser();
-                                String userId = rUser.getUid();
-                                databaseReference = FirebaseDatabase.getInstance("https://aust-blood-donation-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("users").child(userId);
+            databaseReference = FirebaseDatabase.getInstance("https://aust-blood-donation-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("users").child(userId);
 
-                                HashMap<String, String> hashMap = new HashMap<>();
+            HashMap<String, String> hashMap = new HashMap<>();
 
-                                hashMap.put("uid",userId);
-                                hashMap.put("name",name);
-                                hashMap.put("bloodGroup",bloodGroup);
-                                hashMap.put("divison",divison);
-                                hashMap.put("district",district);
-                                hashMap.put("phone",phone);
-                                hashMap.put("date",date);
-                                hashMap.put("availability",available);
+            hashMap.put("uid",userId);
+            hashMap.put("name",name);
+            hashMap.put("bloodGroup",bloodGroup);
+            hashMap.put("divison",divison);
+            hashMap.put("district",district);
+            hashMap.put("phone",phone);
+            hashMap.put("date",date);
+            hashMap.put("availability",availability);
 
-                                databaseReference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        progressBar.setVisibility(View.GONE);
+            databaseReference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    progressBar.setVisibility(View.GONE);
 
-                                        if(task.isSuccessful()){
-                                            userProfileData userProfileData = new userProfileData(userId, name, bloodGroup, divison, district, phone, date, available);
-                                            Toast.makeText(getApplicationContext(), "Sign Up successful!!", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(getApplicationContext(), SignInScreen.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                        else{
-                                            progressBar.setVisibility(View.GONE);
-                                            Toast.makeText(getApplicationContext(),"Database Error!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-
-                            } else {
-                                progressBar.setVisibility(View.GONE);
-                                if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                                    Toast.makeText(getApplicationContext(),"User is already registered!", Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                    Toast.makeText(getApplicationContext(),"Error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                        }
-                    });
+                    if(task.isSuccessful()){
+                        userProfileData userProfileData = new userProfileData(userId, name, bloodGroup, divison, district, phone, date, availability);
+                        Toast.makeText(getApplicationContext(), "Profile Updated successful!!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), userProfile.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else{
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(),"Database Error!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 
         }
 
     }
-
 
 
 }

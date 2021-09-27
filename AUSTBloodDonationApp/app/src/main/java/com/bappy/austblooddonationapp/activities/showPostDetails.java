@@ -25,7 +25,7 @@ import DataModels.bloodPostData;
 
 public class showPostDetails extends AppCompatActivity {
 
-    String id, phone;
+    String id, phone, name = "";
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private TextView showName, showBloodGroup, showDivison, showDistrict, showAddress, showContact, showMessage;
@@ -63,21 +63,25 @@ public class showPostDetails extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                bloodPostData showPost = snapshot.getValue(DataModels.bloodPostData.class);
+                if(snapshot.getChildrenCount()!=0){
+
+                    bloodPostData showPost = snapshot.getValue(DataModels.bloodPostData.class);
 
 
-                showName.setText("Name: "+ showPost.getName());
-                showBloodGroup.setText("Blood Group: "+ showPost.getBloodGroup());
-                showDivison.setText("Divison: "+ showPost.getDivison());
-                showDistrict.setText("District: "+ showPost.getDistrict());
-                showAddress.setText("Full Address: " + showPost.getAddress());
-                showContact.setText("Contact No: "+ showPost.getPhone());
-                showMessage.setText("Message: "+ showPost.getMessage());
-                phone = showPost.getPhone();
+                    showName.setText("Name: "+ showPost.getName());
+                    showBloodGroup.setText("Blood Group: "+ showPost.getBloodGroup());
+                    showDivison.setText("Divison: "+ showPost.getDivison());
+                    showDistrict.setText("District: "+ showPost.getDistrict());
+                    showAddress.setText("Full Address: " + showPost.getAddress());
+                    showContact.setText("Contact No: "+ showPost.getPhone());
+                    showMessage.setText("Message: "+ showPost.getMessage());
+                    phone = showPost.getPhone();
 
-                if(showPost.getUid().equals(userId))
-                    deleteButton.setVisibility(View.VISIBLE);
+                    if(showPost.getUid().equals(userId))
+                        deleteButton.setVisibility(View.VISIBLE);
 
+
+                }
             }
 
             @Override
@@ -95,6 +99,17 @@ public class showPostDetails extends AppCompatActivity {
                 intent.setData(Uri.parse(phoneNo));
                 startActivity(intent);
 
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseReference.removeValue();
+                Toast.makeText(showPostDetails.this, "Post Deleted!", Toast.LENGTH_SHORT).show();
+                Intent intent  = new Intent(getApplicationContext(), Dashboard.class);
+                startActivity(intent);
+                finish();
             }
         });
 

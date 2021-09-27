@@ -29,19 +29,20 @@
             android:layout_gravity="center">
 
 
-            <ImageView
-                android:layout_width="128dp"
-                android:layout_height="128dp"
-                android:src="@drawable/user_profile"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="My Profile!"
+                android:gravity="center"
+                android:layout_margin="20dp"
+                android:textSize="40sp"
+                android:textColor="@color/primaryColor"/>
 
             <TextView
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Name: Rakib Hasan Bappy"
+                android:text="Name:"
                 android:gravity="center"
                 android:layout_margin="10dp"
                 android:textSize="20sp"
@@ -51,7 +52,7 @@
                 android:id="@+id/bloodGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Blood Group: B+"
+                android:text="Blood Group:"
                 android:gravity="center"
                 android:layout_margin="10dp"
                 android:textSize="20sp"
@@ -61,7 +62,7 @@
                 android:id="@+id/divison"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Divison: Dhaka"
+                android:text="Divison:"
                 android:gravity="center"
                 android:layout_margin="10dp"
                 android:textSize="20sp"
@@ -71,7 +72,7 @@
                 android:id="@+id/district"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="District: Kishoregonj"
+                android:text="District:"
                 android:gravity="center"
                 android:layout_margin="10dp"
                 android:textSize="20sp"
@@ -81,7 +82,7 @@
                 android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Contact No: 01761900420"
+                android:text="Contact No:"
                 android:gravity="center"
                 android:layout_margin="10dp"
                 android:textSize="20sp"
@@ -140,20 +141,6 @@
                 android:textAllCaps="false"
                 android:background="@drawable/custom_button"
                 android:layout_margin="30dp"/>
-
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/update_profile_button"
-                android:text="Update Profile"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textAllCaps="false"
-                android:background="@drawable/custom_button"
-                android:layout_margin="30dp"/>
-
 
 
         </LinearLayout>
