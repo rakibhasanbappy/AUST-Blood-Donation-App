@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bappy.austblooddonationapp.R;
@@ -43,6 +44,7 @@ public class allDonorList extends AppCompatActivity {
     private String lastDonateDate;
     private String todaysDate;
     private Toolbar menuItem;
+    private TextView noDataText;
 
 
     @Override
@@ -67,6 +69,8 @@ public class allDonorList extends AppCompatActivity {
         todaysDate = sdf.format(donateDate);
 
         menuItem = findViewById(R.id.toolbar);
+
+        noDataText = findViewById(R.id.noText);
 
 
         menuItem.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -132,6 +136,11 @@ public class allDonorList extends AppCompatActivity {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                }
+
+                if(usersList.isEmpty()){
+                    listView.setVisibility(View.GONE);
+                    noDataText.setVisibility(View.VISIBLE);
                 }
 
 

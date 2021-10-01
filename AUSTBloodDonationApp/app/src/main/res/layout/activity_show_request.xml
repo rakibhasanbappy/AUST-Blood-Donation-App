@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activities.showRequest">
 
     <androidx.appcompat.widget.Toolbar
@@ -16,6 +17,19 @@
         android:layout_height="?android:attr/actionBarSize" />
 
 
+    <TextView
+        android:id="@+id/noText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:text="No Data Available!"
+        android:textSize="40sp"
+        android:textColor="@color/primaryColor"
+        android:gravity="center"
+        android:layout_margin="60dp"
+        android:visibility="gone"/>
+
+
 
     <ListView
         android:listSelector="@color/primaryColor"
@@ -26,6 +40,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar" />
-
 
 </RelativeLayout>

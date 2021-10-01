@@ -36,6 +36,7 @@ public class showRequest extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private Toolbar menuItem;
+    private TextView noDataText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,8 @@ public class showRequest extends AppCompatActivity {
 
         listView= findViewById(R.id.listView);
         menuItem = findViewById(R.id.toolbar);
+
+        noDataText = findViewById(R.id.noText);
 
 
         menuItem.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -101,6 +104,11 @@ public class showRequest extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot1 : snapshot.getChildren()){
                     bloodPostData bloodPostData = dataSnapshot1.getValue(DataModels.bloodPostData.class);
                     bloodPostDataList.add(bloodPostData);
+                }
+
+                if(bloodPostDataList.isEmpty()){
+                    listView.setVisibility(View.GONE);
+                    noDataText.setVisibility(View.VISIBLE);
                 }
 
 

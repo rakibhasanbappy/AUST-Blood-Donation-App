@@ -47,9 +47,9 @@ public class editProfile extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private String name = "", bloodGroup = "", divison = "", district = "", phone = "", date = "", availability = "", userId = "";
 
-    String[] bloodList;
-    String[] divisonList;
-    String[] districtList;
+    private String[] bloodList;
+    private String[] divisonList;
+    private String[] districtList;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 

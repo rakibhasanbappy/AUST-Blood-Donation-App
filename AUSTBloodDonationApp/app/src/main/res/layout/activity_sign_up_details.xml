@@ -201,6 +201,14 @@
         </LinearLayout>
 
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/doneButton"
             android:layout_width="match_parent"
@@ -213,13 +221,6 @@
             android:text="Done!"
             android:textAllCaps="false"
             android:textColor="@color/black"/>
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone"/>
 
 
     </LinearLayout>

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bappy.austblooddonationapp.R;
@@ -32,10 +33,11 @@ public class myRequest extends AppCompatActivity {
     private ListView listView;
     private List<bloodPostData> bloodPostDataList;
     private showPostAdapter showpostAdapter;
-    DatabaseReference databaseReference;
+    private DatabaseReference databaseReference;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private String userId;
     private Toolbar menuItem;
+    private TextView noDataText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,8 @@ public class myRequest extends AppCompatActivity {
         listView= findViewById(R.id.listView);
 
         menuItem = findViewById(R.id.toolbar);
+
+        noDataText = findViewById(R.id.noText);
 
 
         menuItem.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -108,6 +112,11 @@ public class myRequest extends AppCompatActivity {
 
                     if(bloodPostData.getUid().equals(userId))
                         bloodPostDataList.add(bloodPostData);
+                }
+
+                if(bloodPostDataList.isEmpty()){
+                    listView.setVisibility(View.GONE);
+                    noDataText.setVisibility(View.VISIBLE);
                 }
 
 

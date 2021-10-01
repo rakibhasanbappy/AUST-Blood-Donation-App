@@ -48,9 +48,9 @@ public class signUpDetails extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
 
-    String[] bloodList;
-    String[] divisonList;
-    String[] districtList;
+    private String[] bloodList;
+    private String[] divisonList;
+    private String[] districtList;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 

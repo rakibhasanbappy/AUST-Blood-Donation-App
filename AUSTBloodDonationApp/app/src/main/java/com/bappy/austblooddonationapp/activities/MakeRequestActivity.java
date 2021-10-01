@@ -25,14 +25,14 @@ public class MakeRequestActivity extends AppCompatActivity {
     private EditText nameText,requestMessageText, detailAddress, phoneNo;
     private Button request_submit_button;
     private AutoCompleteTextView bloodDropdown, divisonDropdown, districtDropdown;
-    String[] bloodList;
-    String[] divisonList;
-    String[] districtList;
+    private String[] bloodList;
+    private String[] divisonList;
+    private String[] districtList;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     boolean valid = true;
-    String divison = "",bloodGroup = "",district = "",address = "",message = "",name = "",phone = "";
+    private String divison = "",bloodGroup = "",district = "",address = "",message = "",name = "",phone = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
