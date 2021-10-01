@@ -2,9 +2,11 @@ package com.bappy.austblooddonationapp.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -33,6 +35,7 @@ public class myRequest extends AppCompatActivity {
     DatabaseReference databaseReference;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private String userId;
+    private Toolbar menuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,45 @@ public class myRequest extends AppCompatActivity {
         showpostAdapter = new showPostAdapter(myRequest.this, bloodPostDataList);
 
         listView= findViewById(R.id.listView);
+
+        menuItem = findViewById(R.id.toolbar);
+
+
+        menuItem.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                if(item.getItemId() == R.id.my_profile){
+                    Intent intent = new Intent(getApplicationContext(), userProfile.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.my_request){
+                    Intent intent = new Intent(getApplicationContext(), myRequest.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.about_us){
+                    Intent intent = new Intent(getApplicationContext(), aboutUs.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.logout){
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(getApplicationContext(), SignInScreen.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finishAffinity();
+                    return true;
+                }
+
+                return false;
+
+            }
+        });
 
 
     }
@@ -77,8 +119,10 @@ public class myRequest extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         view.setSelected(true);
                         String postID = showpostAdapter.getItem(position).getId().toString();
+                        int views = showpostAdapter.getItem(position).getViews();
                         Intent intent = new Intent(getApplicationContext(), showPostDetails.class);
                         intent.putExtra("postID",postID);
+                        intent.putExtra("views",views);
                         startActivity(intent);
                     }
                 });

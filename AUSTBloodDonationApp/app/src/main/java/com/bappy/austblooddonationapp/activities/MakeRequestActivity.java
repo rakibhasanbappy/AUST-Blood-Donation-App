@@ -162,32 +162,38 @@ public class MakeRequestActivity extends AppCompatActivity {
         phone = phoneNo.getText().toString();
 
         if(name.equals("")){
+            nameText.requestFocus();
             Toast.makeText(this, "Enter Name!", Toast.LENGTH_SHORT).show();
         }
 
         else if(bloodGroup.equals("")){
-
+            bloodDropdown.requestFocus();
             Toast.makeText(this, "Enter Blood Group!", Toast.LENGTH_SHORT).show();
 
         }
 
         else if(divison.equals("")){
+            divisonDropdown.requestFocus();
             Toast.makeText(this, "Enter Divison!", Toast.LENGTH_SHORT).show();
         }
 
         else if(district.equals("")){
+            districtDropdown.requestFocus();
             Toast.makeText(this, "Enter District!", Toast.LENGTH_SHORT).show();
         }
 
         else if(address.equals("")){
+            detailAddress.requestFocus();
             Toast.makeText(this, "Enter Address!", Toast.LENGTH_SHORT).show();
         }
 
         else if(phone.equals("")){
+            phoneNo.requestFocus();
             Toast.makeText(this, "Enter Contact Number!", Toast.LENGTH_SHORT).show();
         }
 
         else if(phone.length() != 11){
+            phoneNo.requestFocus();
             Toast.makeText(this, "Enter Correct Contact Number!", Toast.LENGTH_SHORT).show();
         }
 
@@ -197,7 +203,7 @@ public class MakeRequestActivity extends AppCompatActivity {
             FirebaseUser rUser = mAuth.getCurrentUser();
             String userId = rUser.getUid();
 
-            bloodPostData bloodPostData = new bloodPostData(key, userId, name, bloodGroup, divison, district, address, phone, message);
+            bloodPostData bloodPostData = new bloodPostData(key, userId, name, bloodGroup, divison, district, address, phone, message, 0);
 
             databaseReference.child(key).setValue(bloodPostData);
 
@@ -205,6 +211,7 @@ public class MakeRequestActivity extends AppCompatActivity {
 
             Intent intent = new Intent(getApplicationContext(), Dashboard.class);
             startActivity(intent);
+            finish();
 
         }
 

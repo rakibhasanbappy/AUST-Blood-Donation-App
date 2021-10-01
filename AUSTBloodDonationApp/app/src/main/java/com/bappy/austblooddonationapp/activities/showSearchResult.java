@@ -2,23 +2,30 @@ package com.bappy.austblooddonationapp.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bappy.austblooddonationapp.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import Adapters.showUsersAdapter;
@@ -30,9 +37,14 @@ public class showSearchResult extends AppCompatActivity {
     private ListView listView;
     private List<userProfileData> usersList;
     private showUsersAdapter showusersAdapter;
-    DatabaseReference databaseReference;
+    private DatabaseReference databaseReference;
+    private Calendar calendar;
+    private Date donateDate;
+    private String lastDonateDate;
+    private String todaysDate;
+    private Toolbar menuItem;
 
-    String divison, district, bloodGroup;
+    private String divison, district, bloodGroup;
 
 
     @Override
@@ -58,6 +70,54 @@ public class showSearchResult extends AppCompatActivity {
 
         listView= findViewById(R.id.listView);
 
+        calendar = Calendar.getInstance();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        donateDate = calendar.getTime();
+
+        todaysDate = sdf.format(donateDate);
+
+        menuItem = findViewById(R.id.toolbar);
+
+
+        menuItem.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                if(item.getItemId() == R.id.my_profile){
+                    Intent intent = new Intent(getApplicationContext(), userProfile.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.my_request){
+                    Intent intent = new Intent(getApplicationContext(), myRequest.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.about_us){
+                    Intent intent = new Intent(getApplicationContext(), aboutUs.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.logout){
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(getApplicationContext(), SignInScreen.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finishAffinity();
+                    return true;
+                }
+
+                return false;
+
+            }
+        });
+
+
     }
 
 
@@ -72,16 +132,57 @@ public class showSearchResult extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot1 : snapshot.getChildren()){
                     userProfileData userProfileData = dataSnapshot1.getValue(DataModels.userProfileData.class);
                     if(!divison.equals("") && !district.equals("") && !bloodGroup.equals("")){
-                        if(divison.equals(userProfileData.getDivison().toString()) && district.equals(userProfileData.getDistrict().toString()) && bloodGroup.equals(userProfileData.getBloodGroup().toString()))
-                            usersList.add(userProfileData);
+                        if(divison.equals(userProfileData.getDivison().toString()) && district.equals(userProfileData.getDistrict().toString()) && bloodGroup.equals(userProfileData.getBloodGroup().toString())){
+
+                            lastDonateDate = userProfileData.getDate();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            try {
+                                Date startDate = sdf.parse(lastDonateDate);
+                                Date endDate = sdf.parse(todaysDate);
+                                long diff = (endDate.getTime() - startDate.getTime())/(24*60*60*1000);
+                                int d = (int)diff;
+
+                                if(userProfileData.getAvailability().equals("true") && d > 56)
+                                    usersList.add(userProfileData);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                     else if(!bloodGroup.equals("")){
-                        if(bloodGroup.equals(userProfileData.getBloodGroup().toString()))
-                            usersList.add(userProfileData);
+                        if(bloodGroup.equals(userProfileData.getBloodGroup().toString())){
+                            lastDonateDate = userProfileData.getDate();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            try {
+                                Date startDate = sdf.parse(lastDonateDate);
+                                Date endDate = sdf.parse(todaysDate);
+                                long diff = (endDate.getTime() - startDate.getTime())/(24*60*60*1000);
+                                int d = (int)diff;
+
+                                if(userProfileData.getAvailability().equals("true") && d > 120)
+                                    usersList.add(userProfileData);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                     else{
-                        if(divison.equals(userProfileData.getDivison().toString()) && district.equals(userProfileData.getDistrict().toString()))
-                            usersList.add(userProfileData);
+                        if(divison.equals(userProfileData.getDivison().toString()) && district.equals(userProfileData.getDistrict().toString())){
+                            lastDonateDate = userProfileData.getDate();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            try {
+                                Date startDate = sdf.parse(lastDonateDate);
+                                Date endDate = sdf.parse(todaysDate);
+                                long diff = (endDate.getTime() - startDate.getTime())/(24*60*60*1000);
+                                int d = (int)diff;
+
+                                if(userProfileData.getAvailability().equals("true") && d > 56)
+                                    usersList.add(userProfileData);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
                     }
                 }
 

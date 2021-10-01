@@ -2,10 +2,12 @@ package com.bappy.austblooddonationapp.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -25,11 +27,13 @@ import DataModels.bloodPostData;
 
 public class showPostDetails extends AppCompatActivity {
 
-    String id, phone, name = "";
+    private String id, phone, name = "", details;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private TextView showName, showBloodGroup, showDivison, showDistrict, showAddress, showContact, showMessage;
-    private Button callButton, deleteButton;
+    private Button callButton, deleteButton, shareButton;
+    private Toolbar menuItem;
+    private int views;
 
 
     @Override
@@ -50,14 +54,56 @@ public class showPostDetails extends AppCompatActivity {
         showMessage = findViewById(R.id.showMessage);
         callButton = findViewById(R.id.callButton);
         deleteButton = findViewById(R.id.deleteButton);
+        shareButton = findViewById(R.id.shareButton);
+        menuItem = findViewById(R.id.toolbar);
+
+
+        menuItem.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                if(item.getItemId() == R.id.my_profile){
+                    Intent intent = new Intent(getApplicationContext(), userProfile.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.my_request){
+                    Intent intent = new Intent(getApplicationContext(), myRequest.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.about_us){
+                    Intent intent = new Intent(getApplicationContext(), aboutUs.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.logout){
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(getApplicationContext(), SignInScreen.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finishAffinity();
+                    return true;
+                }
+
+                return false;
+
+            }
+        });
+
 
 
         Bundle extra = getIntent().getExtras();
         if(extra != null){
             id = extra.getString("postID");
+            views = extra.getInt("views");
         }
 
         databaseReference = FirebaseDatabase.getInstance("https://aust-blood-donation-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("bloodPost").child(id);
+        databaseReference.child("views").setValue(views);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -77,8 +123,14 @@ public class showPostDetails extends AppCompatActivity {
                     showMessage.setText("Message: "+ showPost.getMessage());
                     phone = showPost.getPhone();
 
-                    if(showPost.getUid().equals(userId))
+
+                    details = "----- Blood Needed -----" + "\n" + "Name: "+ showPost.getName() +"\n" + "Blood Group: "+ showPost.getBloodGroup() + "\n" + "Address: " + showPost.getAddress() + " ("
+                            + showPost.getDistrict() + ", " + showPost.getDivison() + ")" + "\n" + "Contact: " + showPost.getPhone() + "\n\n" + "#AUST_BLOOD_DONATION_APP";
+
+                    if(showPost.getUid().equals(userId)){
                         deleteButton.setVisibility(View.VISIBLE);
+                        callButton.setVisibility(View.GONE);
+                    }
 
 
                 }
@@ -110,6 +162,17 @@ public class showPostDetails extends AppCompatActivity {
                 Intent intent  = new Intent(getApplicationContext(), Dashboard.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, details);
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
         });
 

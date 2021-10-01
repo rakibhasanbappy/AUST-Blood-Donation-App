@@ -3,10 +3,10 @@ package DataModels;
 public class bloodPostData {
 
     private String id, uid, name, bloodGroup, divison, district, address, phone, message;
+    private int views;
 
 
-
-    public bloodPostData(String id, String uid, String name, String bloodGroup, String divison, String district, String address, String phone, String message) {
+    public bloodPostData(String id, String uid, String name, String bloodGroup, String divison, String district, String address, String phone, String message, int views) {
         this.id = id;
         this.uid = uid;
         this.name = name;
@@ -16,21 +16,13 @@ public class bloodPostData {
         this.address = address;
         this.phone = phone;
         this.message = message;
+        this.views = views;
     }
 
     public bloodPostData(){
 
     }
 
-    /*public bloodPostData(String name, String bloodGroup, String divison, String district, String address, String phone, String message) {
-        this.name = name;
-        this.bloodGroup = bloodGroup;
-        this.divison = divison;
-        this.district = district;
-        this.address = address;
-        this.phone = phone;
-        this.message = message;
-    }*/
 
     public String getId() {
         return id;
@@ -105,4 +97,11 @@ public class bloodPostData {
         this.address = address;
     }
 
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
+    }
 }

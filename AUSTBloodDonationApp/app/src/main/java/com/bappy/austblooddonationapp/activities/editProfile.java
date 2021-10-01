@@ -239,33 +239,41 @@ public class editProfile extends AppCompatActivity {
 
 
         if(name.equals("")){
+            nameText.requestFocus();
             Toast.makeText(this, "Enter Name!", Toast.LENGTH_SHORT).show();
         }
 
         else if(bloodGroup.equals("")){
 
+            bloodDropdown.requestFocus();
             Toast.makeText(this, "Enter Blood Group!", Toast.LENGTH_SHORT).show();
 
         }
 
         else if(divison.equals("")){
+
+            divisonDropdown.requestFocus();
             Toast.makeText(this, "Enter Divison!", Toast.LENGTH_SHORT).show();
         }
 
         else if(district.equals("")){
+            districtDropdown.requestFocus();
             Toast.makeText(this, "Enter District!", Toast.LENGTH_SHORT).show();
         }
 
         else if(date.equals("")){
+            datePicker.requestFocus();
             Toast.makeText(this, "Please select last donation date!!", Toast.LENGTH_SHORT).show();
         }
 
 
         else if(phone.equals("")){
+            phoneNo.requestFocus();
             Toast.makeText(this, "Enter Contact Number!", Toast.LENGTH_SHORT).show();
         }
 
         else if(phone.length() != 11){
+            phoneNo.requestFocus();
             Toast.makeText(this, "Enter Correct Contact Number!", Toast.LENGTH_SHORT).show();
         }
 

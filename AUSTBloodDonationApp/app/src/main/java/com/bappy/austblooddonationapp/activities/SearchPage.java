@@ -1,9 +1,11 @@
 package com.bappy.austblooddonationapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,16 +14,18 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.bappy.austblooddonationapp.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SearchPage extends AppCompatActivity {
 
 
-    AutoCompleteTextView bloodDropdown, divisonDropdown, districtDropdown;
-    String[] bloodList;
-    String[] divisonList;
-    String[] districtList;
-    String divison = "",bloodGroup = "",district = "";
-    Button searchButton;
+    private AutoCompleteTextView bloodDropdown, divisonDropdown, districtDropdown;
+    private String[] bloodList;
+    private String[] divisonList;
+    private String[] districtList;
+    private String divison = "",bloodGroup = "",district = "";
+    private Button searchButton;
+    private Toolbar menuItem;
 
 
     @Override
@@ -34,6 +38,44 @@ public class SearchPage extends AppCompatActivity {
         divisonDropdown = findViewById(R.id.DivisonDropDown);
         districtDropdown = findViewById(R.id.DistrictDropDown);
         searchButton = findViewById(R.id.search_button);
+        menuItem = findViewById(R.id.toolbar);
+
+
+        menuItem.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                if(item.getItemId() == R.id.my_profile){
+                    Intent intent = new Intent(getApplicationContext(), userProfile.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.my_request){
+                    Intent intent = new Intent(getApplicationContext(), myRequest.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.about_us){
+                    Intent intent = new Intent(getApplicationContext(), aboutUs.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.logout){
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(getApplicationContext(), SignInScreen.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finishAffinity();
+                    return true;
+                }
+
+                return false;
+
+            }
+        });
 
 
         bloodList = getResources().getStringArray(R.array.blood_group);
@@ -128,16 +170,21 @@ public class SearchPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(bloodGroup.equals("") && divison.equals("") && district.equals(""))
+                if(bloodGroup.equals("") && divison.equals("") && district.equals("")) {
+                    bloodDropdown.requestFocus();
                     Toast.makeText(SearchPage.this, "Please Enter something to search!", Toast.LENGTH_SHORT).show();
-                else if(!divison.equals("") && district.equals(""))
+                }
+                else if(!divison.equals("") && district.equals("")) {
+                    districtDropdown.requestFocus();
                     Toast.makeText(SearchPage.this, "Enter district for location search!", Toast.LENGTH_SHORT).show();
+                }
                 else{
                     Intent intent = new Intent(getApplicationContext(), showSearchResult.class);
                     intent.putExtra("Divison",divison);
                     intent.putExtra("District", district);
                     intent.putExtra("Blood Group",bloodGroup);
                     startActivity(intent);
+                    finish();
 
                 }
 

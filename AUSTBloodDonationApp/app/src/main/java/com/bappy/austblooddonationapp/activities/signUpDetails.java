@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.bappy.austblooddonationapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -81,8 +83,6 @@ public class signUpDetails extends AppCompatActivity {
         datePicker = findViewById(R.id.date_picker);
         doneButton = findViewById(R.id.doneButton);
         progressBar = findViewById(R.id.progressBar);
-
-        
 
 
         bloodList = getResources().getStringArray(R.array.blood_group);
@@ -258,6 +258,20 @@ public class signUpDetails extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 FirebaseUser rUser = mAuth.getCurrentUser();
+
+                                rUser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(signUpDetails.this, "Verification email has been sent!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(signUpDetails.this, "Verification email can't be sent!", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+
                                 String userId = rUser.getUid();
                                 databaseReference = FirebaseDatabase.getInstance("https://aust-blood-donation-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("users").child(userId);
 

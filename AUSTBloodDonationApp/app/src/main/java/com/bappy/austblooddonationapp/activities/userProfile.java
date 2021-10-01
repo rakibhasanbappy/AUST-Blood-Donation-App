@@ -3,12 +3,14 @@ package com.bappy.austblooddonationapp.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -41,6 +43,7 @@ public class userProfile extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private Button editButton;
     private String Name = "", BloodGroup = "", Divison = "", District = "", Phone = "", Date = "", Available = "";
+    private Toolbar menuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,44 @@ public class userProfile extends AppCompatActivity {
         date = findViewById(R.id.date_picker);
         available = findViewById(R.id.available);
         editButton = findViewById(R.id.edit_profile_button);
+        menuItem = findViewById(R.id.toolbar);
+
+
+        menuItem.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                if(item.getItemId() == R.id.my_profile){
+                    Intent intent = new Intent(getApplicationContext(), userProfile.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.my_request){
+                    Intent intent = new Intent(getApplicationContext(), myRequest.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.about_us){
+                    Intent intent = new Intent(getApplicationContext(), aboutUs.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.logout){
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(getApplicationContext(), SignInScreen.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finishAffinity();
+                    return true;
+                }
+
+                return false;
+
+            }
+        });
 
 
         available.setClickable(false);
@@ -99,33 +140,6 @@ public class userProfile extends AppCompatActivity {
             }
         });
 
-
-        /*datePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog = new DatePickerDialog(userProfile.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, mDateSetListener, year, month, day);
-
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-
-            }
-        });
-
-        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
-
-                month = month +1;
-                String date = day + "/" + month + "/" + year;
-                datePicker.setText(date);
-
-            }
-        };*/
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override

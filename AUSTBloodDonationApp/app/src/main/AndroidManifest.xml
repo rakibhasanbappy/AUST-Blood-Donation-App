@@ -12,13 +12,13 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.AUSTBloodDonationApp">
-        <activity android:name=".activities.editProfile"></activity>
+        <activity android:name=".activities.forgetPassword"></activity>
+        <activity android:name=".activities.editProfile" />
         <activity android:name=".activities.myRequest" />
         <activity android:name=".activities.allDonorList" />
         <activity android:name=".activities.signUpDetails" />
         <activity android:name=".activities.aboutUs" />
         <activity android:name=".activities.userProfile" />
-        <activity android:name=".activities.userRequest" />
         <activity android:name=".activities.showSearchResult" />
         <activity android:name=".activities.showPostDetails" />
         <activity android:name=".activities.showRequest" />

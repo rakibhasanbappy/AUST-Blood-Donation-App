@@ -39,12 +39,13 @@ public class showPostAdapter extends ArrayAdapter<bloodPostData> {
         TextView bloodGroup = view.findViewById(R.id.bloodGroupText);
         TextView name = view.findViewById(R.id.nameText);
         TextView address = view.findViewById(R.id.addressText);
+        TextView views = view.findViewById(R.id.viewsCount);
 
 
         name.setText("Name: "+bloodPostData.getName());
         bloodGroup.setText("Blood Group: "+bloodPostData.getBloodGroup());
         address.setText("Address: "+bloodPostData.getAddress());
-
+        views.setText(String.valueOf(bloodPostData.getViews()));
 
         return view;
     }

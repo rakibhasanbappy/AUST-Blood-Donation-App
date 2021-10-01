@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 
 
 import com.bappy.austblooddonationapp.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Dashboard extends AppCompatActivity implements View.OnClickListener {
 
@@ -57,6 +58,21 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                     return true;
                 }
 
+                if(item.getItemId() == R.id.about_us){
+                    Intent intent = new Intent(getApplicationContext(), aboutUs.class);
+                    startActivity(intent);
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.logout){
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(getApplicationContext(), SignInScreen.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finishAffinity();
+                    return true;
+                }
+
                 return false;
 
             }
@@ -64,25 +80,6 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
 
     }
-
-    /*@Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        Toast.makeText(this, "menu", Toast.LENGTH_SHORT).show();
-
-        switch (item.getItemId()){
-
-            case R.id.my_profile:
-                Toast.makeText(this, "My profile selected!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), userProfile.class);
-                startActivity(intent);
-                return true;
-
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
-
 
 
     @Override
