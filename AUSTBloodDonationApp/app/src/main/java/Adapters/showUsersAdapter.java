@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,11 @@ public class showUsersAdapter extends ArrayAdapter<userProfileData> {
         TextView bloodGroup = view.findViewById(R.id.bloodGroupText);
         TextView name = view.findViewById(R.id.nameText);
         TextView address = view.findViewById(R.id.addressText);
+        TextView views = view.findViewById(R.id.viewsCount);
+        ImageView eyeView = view.findViewById(R.id.eyeView);
+
+        views.setVisibility(View.GONE);
+        eyeView.setVisibility(View.GONE);
 
 
         name.setText("Name: "+ userProfileData.getName());
