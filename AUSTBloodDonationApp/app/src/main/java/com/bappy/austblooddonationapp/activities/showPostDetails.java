@@ -89,6 +89,26 @@ public class showPostDetails extends AppCompatActivity {
                     return true;
                 }
 
+
+                if(item.getItemId() == R.id.share){
+                    String details = "Download AUST Blood Donation App: https://drive.google.com/drive/folders/1lhIfbIdxVcELHFWTv_fxtVqB61D3ULkO?usp=sharing";
+                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, details);
+                    startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                    return true;
+                }
+
+                if(item.getItemId() == R.id.report){
+                    Intent intent = new Intent(Intent.ACTION_SENDTO);
+                    intent.setData(Uri.parse("mailto:austblooddonationapp@gmail.com")); // only email apps should handle this
+                    intent.putExtra(Intent.EXTRA_EMAIL, "austblooddonationapp@gmail.com");
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
+                    return true;
+                }
+
                 return false;
 
             }
