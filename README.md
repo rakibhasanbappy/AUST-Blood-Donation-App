@@ -6,11 +6,11 @@ AUST Blood Donation is an android app where people can search for donors and req
 - You can make a profile containing your details like address, age, contact number and most importantly your blood group.
 - You can make requests for blood and see the requests of other people in the dashboard/request section.
 - You can search your required donor based on blood group, availability and your desired area.
-- You can communicate with the donor you want by making a call.
+- You can communicate with the donor you want by making a call. <br><br>
 
 **What’s New:**
 - A user can update his/her last donation information in the profile section. User can also make him/her available or not at any time.
-- A user can see how much people viewed his/her post.
+- A user can see how much people viewed his/her post. <br><br>
 
 YouTube video link: [Click here to watch video](https://youtu.be/fbFM67wIE6k)
 
